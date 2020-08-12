@@ -4,10 +4,10 @@ import re
 
 from setuptools import find_packages, setup
 
-
+"""  FIXME
 with io.open("fab_quick_start_util/fab_quick_start.py", "rt", encoding="utf8") as f:
     version = re.search(r"__version__ = \"(.*?)\"", f.read()).group(1)
-
+"""
 
 def fpath(name):
     return os.path.join(os.path.dirname(__file__), name)
@@ -26,8 +26,8 @@ project_urls = {
 }
 
 setup(
-    name="FAB-Quick-start",
-    version=version,  
+    name="fab-quick-start",
+    version="0.9.1",  # FIXME use the io_open  
     url="https://github.com/valhuber/fab-quickstart",
     license="BSD",
     author="Val Huber",
