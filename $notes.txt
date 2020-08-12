@@ -1,0 +1,26 @@
+Informal project notes.  See $$package for Pypi deployment instructions.
+
+7/24
+    sqlagenerator does not generate fKeys or relns
+
+
+cd /Users/val/python/vsc/fab_nw ; env /Users/val/python/vsc/fab_nw/venv/bin/python3.8 /Users/val/.vscode/extensions/ms-python.python-2020.7.96456/pythonFiles/lib/python/debugpy/launcher 59007 -- -m flask run --no-debugger --no-reload 
+
+cd /Users/val/python/vsc/fab_nw ; env /Users/val/python/vsc/fab_nw/venv/bin/python3.8 /Users/val/.vscode/extensions/ms-python.python-2020.7.96456/pythonFiles/lib/python/debugpy/launcher 59007 -- -m flask run --debugger --reload
+
+8/7
+  Docs: 1 line "Quick Start" link on github, docs ==> wiki??
+  pyinstaller blocker
+    python setup.py install
+
+8/8
+  minor - cli fixes -- Daniel help??
+    cli unable to show version (want: fab-quickstart version)
+    cli name (more like flask fab quickstart, or flask fab -quickstart generate-views, or?)
+
+  major
+    fab-quickstart fails due to package / import naming issues  -- Daniel help??
+    app fails to run due to ProductDetails_V - assigned to Val
+      File "/Users/val/python/vscode/nw/app/app/views.py", line 168, in ProductDetails_VModelView
+        datamodel = SQLAInterface(ProductDetails_V)
+        NameError: name 'ProductDetails_V' is not defined (bug: views not expected)
