@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: fab-quick-start
-Version: 0.9.1
+Version: 0.9.3
 Summary: Creates FAB view from model, for an instant multi-page, multi-table app.Apps are multi-page: 1 page per table, with page-page navigation for related data.Pages are multi-table: includes related_views, predictive joins.
 Home-page: https://github.com/valhuber/fab-quickstart
 Author: Val Huber

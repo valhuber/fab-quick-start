@@ -27,7 +27,7 @@ project_urls = {
 
 setup(
     name="fab-quick-start",
-    version="0.9.1",  # FIXME use the io_open  
+    version="0.9.3",  # FIXME use the io_open  
     url="https://github.com/valhuber/fab-quickstart",
     license="BSD",
     author="Val Huber",
@@ -43,7 +43,7 @@ setup(
     packages=find_packages(),
     package_data={"": ["LICENSE"]},
     entry_points={
-        "console_scripts": ["fab-quick-start=fab_quick_start:start"]
+        "console_scripts": ["fab-quick-start=fab_quick_start_util.fab_quick_start:start"]
     },
     include_package_data=True,
     zip_safe=False,
