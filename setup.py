@@ -5,7 +5,7 @@ import re
 from setuptools import find_packages, setup
 
 
-with io.open("fab_quickstart/__init__.py", "rt", encoding="utf8") as f:
+with io.open("fab_quick_start_util/fab_quick_start.py", "rt", encoding="utf8") as f:
     version = re.search(r"__version__ = \"(.*?)\"", f.read()).group(1)
 
 
@@ -22,11 +22,11 @@ def desc():
 
 
 project_urls = {
-  'FAB Quick Start Guide': 'https://github.com/valhuber/fab-quickstart/wiki'
+  'FAB Quick Start Guide': 'https://github.com/valhuber/fab-quick-start/wiki'
 }
 
 setup(
-    name="FAB-Quickstart",
+    name="FAB-Quick-start",
     version=version,  
     url="https://github.com/valhuber/fab-quickstart",
     license="BSD",
@@ -43,7 +43,7 @@ setup(
     packages=find_packages(),
     package_data={"": ["LICENSE"]},
     entry_points={
-        "console_scripts": ["fab-quickstart=fab_quickstart.cli:start"]
+        "console_scripts": ["fab-quick-start=fab_quick_start:start"]
     },
     include_package_data=True,
     zip_safe=False,

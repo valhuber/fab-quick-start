@@ -5,7 +5,7 @@ The ``fab-quickstart`` command line utility creates the
 `Flask App Builder <https://github.com/dpgaspar/Flask-AppBuilder>`_ ``views.py`` file,
 directly from ``models.py``, for an instant multi-page, multi-table app.
 
-Use this `FAB Quick Start Guide <https://github.com/valhuber/fab-quickstart/wiki>`_ 
+Use this `FAB Quick Start Guide <https://github.com/valhuber/fab-quick-start/wiki>`_ 
 to create the app shown below in 10 minutes.
 
 
@@ -35,7 +35,7 @@ Use the Quick Start Guide (link above) to create the application
 shown above in 10 minutes.
 
 Recall that creating the ``views.py`` file can be
-`tedious. <https://github.com/valhuber/fab-quickstart/wiki#key-fab-inputs-modelspy-and-viewspy>`_
+`tedious. <https://github.com/valhuber/fab-quick-start/wiki#key-fab-inputs-modelspy-and-viewspy>`_
 This utility generates the ``views.py`` file from the ``models.py`` file,
 to save time and reduce learning curve.
 
@@ -61,7 +61,7 @@ Depends on:
 
 More information:
 -----------------
-The `FAB Quick Start github <https://github.com/valhuber/fab-quickstart#fab-quick-start---build-viewspy>`_ for more information, and explore the code.
+The `FAB Quick Start github <https://github.com/valhuber/fab-quick-start#fab-quick-start---build-viewspy>`_ for more information, and explore the code.
 
 
 
