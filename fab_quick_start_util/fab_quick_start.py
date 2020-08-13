@@ -37,7 +37,7 @@ import inspect
 import importlib
 import click
 # FIXME from fab_quick_start_util import __version__  for now...
-__version__ = '0.9.0'
+__version__ = '0.9.5'
 
 #  MetaData = NewType('MetaData', object)
 MetaDataTable = NewType('MetaDataTable', object)
@@ -50,17 +50,17 @@ class FabQuickStart(object):
 
     _result = ""
 
+    _favorite_names_list = []  #: ["name", "description"]
     """
         array of substrings used to find favorite column name
 
-        override per language, db conventions
+        command line option to override per language, db conventions
 
         eg,
             name in English
             nom in French
     """
-    _favorite_names_list = []  # ["name", "description"]
-    favorite_names = "name description"  # e.g. "nom, description"
+    favorite_names = "name description"  #: e.g. "nom, description"
 
     _non_favorite_names_list = []
     non_favorite_names = "id"
@@ -70,7 +70,6 @@ class FabQuickStart(object):
     num_pages_generated = 0
     num_related = 0
 
-
     def run(self) -> str:
         """
             Returns a string of views.py content
@@ -79,6 +78,7 @@ class FabQuickStart(object):
                 qs = FabQuickStart()\r
                 qs.favorite_names = "nom description"\r
                 qs.non_favorite_names = "id"\r
+                qs.run()\r
 
             Parameters:
         """
@@ -96,14 +96,14 @@ class FabQuickStart(object):
                          + "Non Favorites: "
                          + str(self._non_favorite_names_list) + "\n\n"
                          + "At: " + str(datetime.datetime.now()) + "\n\n")
-        #  print ("\n\n** debug path issues: \n\n" + self._result)
+        #  print ("\n\n** debug path issues 1: \n\n" + self._result)
         if ("fab-quick-start" in cwd and "nw" not in cwd):
             # sorry, this is just to enable run cli/base, *or" by python cli.py
             # need to wind up at .... /nw-app
             cwd = cwd.replace("fab-quick-start",
                               "fab-quick-start/nw-app", 1)
             self._result += "Debug cmd override: " + cwd + "\n\n"
-            #  print ("\n\n** debug path issues: \n\n" + self._result)
+            #  print ("\n\n** debug path issues 2: \n\n" + self._result)
         self._result += '"""\n\n'
         metadata = self.find_meta_data(cwd)
         meta_tables = metadata.tables
@@ -118,7 +118,7 @@ class FabQuickStart(object):
         """     Find Metadata from model, or (failing that), db
 
             Metadata contains definition of tables, cols & fKeys (show_related)
-            It can be obtained from db, or models.py; important because...
+            It can be obtained from db, *or* models.py; important because...
                 Many DBs don't define FKs into the db (e.g. nw.db)
                 Instead, they define "Virtual Keys" in their model files
                 To find these, we need to get Metadata from models, not db
@@ -127,10 +127,9 @@ class FabQuickStart(object):
                 2. Find the Metadata from the imported models:
                     a. Find cls_members in models module
                     b. Locate first user model, use its metadata property
-            #  view_metadata = models.Order().metadata  #  class variable, non ab_, 
+            #  view_metadata = models.Order().metadata  # class var, non ab_
 
             All this is doing is:
-                    from .goldfish import GoldFish as goldfish
                     from <cwd>/app import models(.py) as models
 
         """
@@ -148,9 +147,9 @@ class FabQuickStart(object):
 
                 credit: https://www.blog.pythonlibrary.org/2016/05/27/python-201-an-intro-to-importlib/
             """
-            sys.path.insert(0, a_cwd + '/app') 
+            sys.path.insert(0, a_cwd + '/app')
             #  e.g., adds /Users/val/python/vscode/fab-quickstart/nw-app/app
-            #  print("DEBUG find_meta sys.path: " + str(sys.path))  
+            #  print("DEBUG find_meta sys.path: " + str(sys.path))
             try:
                 models = importlib.import_module('models')
             except:
@@ -165,7 +164,8 @@ class FabQuickStart(object):
 
         orm_class = None
         metadata = None
-        cls_members = inspect.getmembers(sys.modules["models"], inspect.isclass)
+        cls_members = inspect.getmembers(sys.modules["models"],
+                                         inspect.isclass)
         for each_cls_member in cls_members:
             each_class_def_str = str(each_cls_member)
             #  such as ('Category', <class 'models.Category'>)
@@ -194,7 +194,8 @@ class FabQuickStart(object):
             (first portion of views.py file)
         """
         result = "from flask_appbuilder import ModelView\n"
-        result += "from flask_appbuilder.models.sqla.interface import SQLAInterface\n"
+        result += "from flask_appbuilder.models.sqla.interface "\
+            "import SQLAInterface\n"
         result += "from . import appbuilder, db\n"
         result += "from .models import *\n"
         result += "\n"
@@ -316,8 +317,7 @@ class FabQuickStart(object):
 
         favorite_column_name = self.favorite_column_name(a_table_def)
         column_count = 1
-        id_column_count = 0
-        result += '"' + favorite_column_name + '"'  # todo hmm emp territory
+        result += '"' + favorite_column_name + '"'  # todo hmm: emp territory
         processed_column_names.add(favorite_column_name)
 
         predictive_joins = self.predictive_join_columns(a_table_def)
@@ -392,8 +392,6 @@ class FabQuickStart(object):
                 return True
         return False
 
-
-
     def related_views(self, a_table_def: MetaDataTable) -> str:
         """
             Generates statments like
@@ -445,9 +443,9 @@ class FabQuickStart(object):
         for each_possible_child_tuple in all_tables.items():
             each_possible_child = each_possible_child_tuple[1]
             parents = each_possible_child.foreign_keys
-            if (a_table_def.name == "Customer" and 
+            if (a_table_def.name == "Customer" and
                     each_possible_child.name == "Order"):
-                log.debug (a_table_def)
+                log.debug(a_table_def)
             for each_parent in parents:
                 each_parent_name = each_parent.target_fullname
                 loc_dot = each_parent_name.index(".")
@@ -520,8 +518,6 @@ class FabQuickStart(object):
         return result
 
 
-
-
 @click.group()
 def fab():
     """ FAB flask group commands"""
@@ -533,37 +529,24 @@ def version():
     """
         FAB Quickstart package version
     """
-    print("TODO - add version")
     click.echo(
         click.style(
-            "F.A.B Version: {0}.".format(fab_quickstart.__version__),
+            "F.A.B Version: {0}.".format(__version__),
             bg="blue",
             fg="white",
         )
     )
 
-"""
-    uploaded to https://test.pypi.org/project/FAB-Quickstart/0.9.0/
-    so
-        pip install -i https://test.pypi.org/simple/ FAB-Quickstart==0.9.0
-        fabqs
 
-    FIXME
-        
-        it runs!  but... for fab consistency... should it be??
-
-        flask fab quickstart
-
-"""
 @click.command()
 @click.option('--favorites',
-            default="name description",
-            prompt="Favorite Column Names",
-            help="Word(s) used to identify 'favorite column' (displayed first)")
+              default="name description",
+              prompt="Favorite Column Names",
+              help="Word(s) identifying 'favorite name' (displayed first)")
 @click.option('--non_favorites',
-            default="id",
-            prompt="Non Favorite Column Names",
-            help="Word(s) used to identify last-shown fields")
+              default="id",
+              prompt="Non Favorite Column Names",
+              help="Word(s) used to identify last-shown fields")
 def main(favorites, non_favorites):
     """
         Creates instant web app - generates fab views contents.
@@ -571,7 +554,7 @@ def main(favorites, non_favorites):
 \b
         fab is Flask Application Builder\r
             Docs:        https://flask-appbuilder.readthedocs.io/en/latest/\r
-            Quick Start: https://github.com/valhuber/fab-quickstart
+            Quick Start: https://github.com/valhuber/fab-quick-start
 
 \b
         Usage\r
@@ -581,16 +564,13 @@ def main(favorites, non_favorites):
                 https://pypi.org/project/sqlacodegen/\r
                 NB: Add relationships missing in db to get related_views\r
             3. cd to directory containing your config.py file:\r
-                cd my_project -- \r
+                cd <my_project> \r
                 --app\r
                 --|--__init__.py\r
                 --|--models.py\r
                 __|--views.py\r
                 --config.py\r
             4. fab_quickstart\r
-                dev mode\r
-                    cd nw\r
-                    python ../fab_quickstart/cli.py\r
             5. copy output over app/views.py
             6. cd my_project; flask run
     """
@@ -604,11 +584,11 @@ def main(favorites, non_favorites):
 
 log = logging.getLogger(__name__)
 
+
 def start():  # target of setup.py
-    print("\nFAB Quickstart Here\n")
-    main(obj={})
+    print("\nFAB Quickstart " + __version__ + " Here\n")
+    main(obj={})  # FIXME missing args
 
 
 if __name__ == '__main__':
-    print("\nFAB Quickstart " + __version__ + " Here\n")
     main(obj={})
