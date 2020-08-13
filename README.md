@@ -46,4 +46,4 @@ flask run
 
 ***
 ## Explore fab-quick-start
-Use this to [explore the FAB Quick Start Utility](https://github.com/valhuber/fab-quick-start/wiki/Explore-fab_quickstart).
+Use this to [explore the FAB Quick Start Utility](https://github.com/valhuber/fab-quick-start/wiki/Explore-fab_quick-start).
