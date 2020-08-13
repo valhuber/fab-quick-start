@@ -36,11 +36,12 @@ from sqlalchemy import MetaData
 import inspect
 import importlib
 import click
-# FIXME from fab_quick_start_util import __version__
+# FIXME from fab_quick_start_util import __version__  for now...
+__version__ = '0.9.0'
 
 #  MetaData = NewType('MetaData', object)
 MetaDataTable = NewType('MetaDataTable', object)
-__version__ = '0.9.0'
+
 
 class FabQuickStart(object):
     """
@@ -68,6 +69,7 @@ class FabQuickStart(object):
     _tables_generated = set()  # to address "generate children first"
     num_pages_generated = 0
     num_related = 0
+
 
     def run(self) -> str:
         """
@@ -600,12 +602,13 @@ def main(favorites, non_favorites):
     print("\n" + fab_quick_start._result)
 
 
+log = logging.getLogger(__name__)
+
 def start():  # target of setup.py
     print("\nFAB Quickstart Here\n")
     main(obj={})
 
 
 if __name__ == '__main__':
-    log = logging.getLogger(__name__)
     print("\nFAB Quickstart " + __version__ + " Here\n")
     main(obj={})
