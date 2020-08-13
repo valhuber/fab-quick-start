@@ -9,8 +9,11 @@ https://github.com/valhuber/fab-quick-start/wiki/Explore-fab-quick-start
 Features: see readme
 
 Urgent
-    Quick Start - search this code for FIXME
-    FAB - OrderDetail - magnifying glass page fails
+    Quick Start
+        Search this code for FIXME
+    FAB - Generated app fails
+        OrderDetail - magnifying glass page fails
+        Generators views.py fails: class ProductDetails_VModelView(ModelView):
 
 New Quick Start Features:
     * Some minor relationships may be missing in models.py
