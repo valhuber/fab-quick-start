@@ -1,18 +1,18 @@
 # -*- coding: utf-8 -*-
-"""Generates FAB view files from db model.
+"""Generates FAB views.py file from db model.
 
-Features:
-    1. Generate views.py with 1 class per (not ab_) table
-        a. "Favorite" fields (contains name) first
-        b. Numeric keyfields last (none for list)
-        c. Sensible limits on # fields for list
-    2. With Referenced for master/detail (Order before Customer)
-        a. Generated child views first
-    3. Predictive Joins (ProductName on Order+OrderDetail
-        a. Note - *not* generated for edit/add, else you get fab "key errors"
+Install, Run, Deploy Instructions
+=================================
 
-Todo:
-    * OrderDetail - magnifying glass page fails
+https://github.com/valhuber/fab-quick-start/wiki/Explore-fab-quick-start
+
+Features: see readme
+
+Urgent
+    Quick Start - search this code for FIXME
+    FAB - OrderDetail - magnifying glass page fails
+
+New Quick Start Features:
     * Some minor relationships may be missing in models.py
     * Recognize other views, such as Maps
     * Suppress Master on Child (no Order# on each Order Detail)
@@ -23,6 +23,8 @@ New FAB Features:
     * Lookups (find/choose Product for Order Detail)
     * better col/field captions
     * updatable list (=> multi-row save)
+    * hide/show field (& caption)
+    * page (instruction) notes
 """
 
 import logging
@@ -151,7 +153,8 @@ class FabQuickStart(object):
             #  e.g., adds /Users/val/python/vscode/fab-quickstart/nw-app/app
             #  print("DEBUG find_meta sys.path: " + str(sys.path))
             try:
-                models = importlib.import_module('models')
+                # models =
+                importlib.import_module('models')
             except:
                 raise Exception("Unable to open models from: " + str(sys.path))
 
@@ -180,7 +183,8 @@ class FabQuickStart(object):
 
         engine = sqlalchemy.create_engine(conn_string)
 
-        connection = engine.connect()
+        # connection =
+        engine.connect()
         if (metadata is None):
             log.debug("using db for meta (models not found")
             metadata = MetaData()
@@ -191,7 +195,7 @@ class FabQuickStart(object):
         """
             Returns a string of views.py imports
 
-            (first portion of views.py file)
+            (first portion of `views.py` file)
         """
         result = "from flask_appbuilder import ModelView\n"
         result += "from flask_appbuilder.models.sqla.interface "\
