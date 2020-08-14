@@ -10,6 +10,14 @@
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal"
+        },
+        {
+            "name": "fab-quick-start run",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/fab_quick_start_util/fab_quick_start.py",
+            "args":["run"],
+            "console": "integratedTerminal"
         }
     ]
 }

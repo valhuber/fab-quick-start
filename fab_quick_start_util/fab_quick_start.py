@@ -5,6 +5,11 @@ For Dev: Install, Run, Deploy Instructions
     https://github.com/valhuber/fab-quick-start/wiki/Explore-fab-quick-start
     cd nw-app
     python ../fab_quick_start_util/fab_quick_start.py
+    python ../fab_quick_start_util/fab_quick_start.py run
+
+    cd nw-app
+    virtualenv venv
+    pip install ../../fab-quick-start
 
 For Users: Usage
     FAB Quick Start Guide: https://github.com/valhuber/fab-quick-start/wiki
@@ -43,7 +48,7 @@ import click
 # import fab_quick_start_util.__init__  TODO
 # __version__ = __init__.__version__
 # fails 'method-wrapper' object has no attribute '__version__'.. work-around:
-__version__ = "0.9.5"
+__version__ = "0.9.6"
 
 #  MetaData = NewType('MetaData', object)
 MetaDataTable = NewType('MetaDataTable', object)
@@ -528,43 +533,30 @@ class FabQuickStart(object):
         return result
 
 
+'''
+            CLI
+
+            fab-quick-start --help
+            fab-quick-start version
+            fab-quick-start run [--favorites=string] [--non_favorites=string]
+'''
+
+
 @click.group()
-def fab():
-    """ FAB flask group commands"""
-    pass
-
-
-@fab.command("version")  # TODO not working
-def version():
+@click.pass_context
+def main(ctx):
     """
-        FAB Quickstart package version
-    """
-    click.echo(
-        click.style(
-            "F.A.B Version: {0}.".format(__version__),
-            bg="blue",
-            fg="white",
-        )
-    )
 
-
-@click.command()
-@click.option('--favorites',
-              default="name description",
-              prompt="Favorite Column Names",
-              help="Word(s) identifying 'favorite name' (displayed first)")
-@click.option('--non_favorites',
-              default="id",
-              prompt="Non Favorite Column Names",
-              help="Word(s) used to identify last-shown fields")
-def main(favorites, non_favorites):
-    """
         Creates instant web app - generates fab views contents.
 
 \b
         fab is Flask Application Builder\r
             Docs:        https://flask-appbuilder.readthedocs.io/en/latest/\r
-            Quick Start: https://github.com/valhuber/fab-quick-start
+            Quick Start: https://github.com/valhuber/fab-quick-start/wiki
+
+\b
+        fab-quick-start\r
+            Docs:       https://github.com/valhuber/fab-quick-start
 
 \b
         Usage\r
@@ -572,6 +564,7 @@ def main(favorites, non_favorites):
             1. Generate a fab project\r
             2. Complete your models file (consider sqlacodegen)\r
                 https://pypi.org/project/sqlacodegen/\r
+                NB: Be sure to use the --noviews option\r
                 NB: Add relationships missing in db to get related_views\r
             3. cd to directory containing your config.py file:\r
                 cd <my_project> \r
@@ -580,9 +573,26 @@ def main(favorites, non_favorites):
                 --|--models.py\r
                 __|--views.py\r
                 --config.py\r
-            4. fab_quickstart\r
+            4. fab_quickstart run\r
             5. copy output over app/views.py
             6. cd my_project; flask run
+    """
+
+
+@main.command("run")
+@click.option('--favorites',
+              default="name description",
+              prompt="Favorite Column Names",
+              help="Word(s) identifying 'favorite name' (displayed first)")
+@click.option('--non_favorites',
+              default="id",
+              prompt="Non Favorite Column Names",
+              help="Word(s) used to identify last-shown fields")
+@click.pass_context
+def run(ctx, favorites: str, non_favorites: str):
+
+    """
+        Create views.py file from db, models.py
     """
     fab_quick_start = FabQuickStart()
     fab_quick_start.favorite_names = favorites
@@ -592,13 +602,37 @@ def main(favorites, non_favorites):
     print("\n" + fab_quick_start._result)
 
 
+@main.command("version")  # TODO not working
+@click.pass_context
+def version(ctx):
+    """
+        Recent Changes
+    """
+    click.echo(
+        click.style(
+            "\nInitial Version\n\n"
+        )
+    )
+
+
 log = logging.getLogger(__name__)
 
 
 def start():  # target of setup.py
-    print("\nFAB Quickstart " + __version__ + " Here\n")
-    main(obj={})  # TODO - main(a,b) fails to work for --help
+    print("\n\nfab-quick-start " + __version__ + " here\n")
+    main(obj={}) # TODO - main(a,b) fails to work for --help
 
 
 if __name__ == '__main__':
-    start()
+    commands = (
+        'run',
+        '--favorites=name description',
+        '--non_favorites=id',
+    )
+    main(commands)
+    """
+    ctx = click.Context(click.Command('run'))
+    with ctx:
+        main(ctx)
+    """
+    # start()
