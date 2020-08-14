@@ -1,19 +1,20 @@
 # -*- coding: utf-8 -*-
 """Generates FAB views.py file from db model.
 
-Install, Run, Deploy Instructions
-=================================
+For Dev: Install, Run, Deploy Instructions
+    https://github.com/valhuber/fab-quick-start/wiki/Explore-fab-quick-start
 
-https://github.com/valhuber/fab-quick-start/wiki/Explore-fab-quick-start
-
-Features: see readme
+For Users: Usage
+    FAB Quick Start Guide: https://github.com/valhuber/fab-quick-start/wiki
+    FAB Quick Start Utility: https://github.com/valhuber/fab-quick-start
 
 Urgent
-    Quick Start
-        Search this code for FIXME
-    FAB - Generated app fails
+    FAB - Generated app fails - maybe release with ReadMe, but undesirable...
         OrderDetail - magnifying glass page fails
         Generators views.py fails: class ProductDetails_VModelView(ModelView):
+    Quick Start - we can release without these
+        Search this code for FIXME
+        We can release without these
 
 New Quick Start Features:
     * Some minor relationships may be missing in models.py
@@ -22,12 +23,12 @@ New Quick Start Features:
         ** Big deal, since can't re-use child on multiple different parents.
         ** Ugh
 
-New FAB Features:
+New FAB Feature Suggestions:
     * Lookups (find/choose Product for Order Detail)
-    * better col/field captions
-    * updatable list (=> multi-row save)
-    * hide/show field (& caption)
-    * page (instruction) notes
+    * Better col/field captions
+    * Updatable list (=> multi-row save)
+    * Hide/show field (& caption)
+    * Page (instruction) notes
 """
 
 import logging
