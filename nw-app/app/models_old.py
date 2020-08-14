@@ -1,12 +1,25 @@
-from sqlalchemy import Boolean, Column, DECIMAL, DateTime, Float, ForeignKey, Integer, LargeBinary, String, UniqueConstraint
+from flask_appbuilder import Model
+from flask_appbuilder.models.mixins import BaseMixin
+from sqlalchemy import Column, Date, ForeignKey, Integer, String
+from sqlalchemy.orm import relationship
+
+"""  Hand edited sqlagen output, not required
+
+You can use the extra Flask-AppBuilder fields and Mixin's
+
+AuditMixin will add automatic timestamp of created and modified by who
+
+"""
+
+from sqlalchemy import Boolean, Column, DECIMAL, DateTime, Float, ForeignKey, Integer, LargeBinary, String, Table, UniqueConstraint
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 
-Base = declarative_base()  # from sqlacodegen
+Base = declarative_base()
 metadata = Base.metadata
 
 
-class Category(Base):
+class Category(BaseMixin, Model):
     __tablename__ = 'Category'
 
     Id = Column(Integer, primary_key=True)
@@ -14,7 +27,7 @@ class Category(Base):
     Description = Column(String(8000))
 
 
-class Customer(Base):
+class Customer(BaseMixin, Model):
     __tablename__ = 'Customer'
 
     Id = Column(String(8000), primary_key=True)
@@ -28,16 +41,29 @@ class Customer(Base):
     Country = Column(String(8000))
     Phone = Column(String(8000))
     Fax = Column(String(8000))
+    # Order_List = relationship("Order")  # is this required?  how does fab find children?
+
+    def __repr__(self):
+        return self.CompanyName
 
 
-class CustomerDemographic(Base):
+
+class CustomerCustomerDemo(BaseMixin, Model):
+    __tablename__ = 'CustomerCustomerDemo'
+
+    Id = Column(String(8000), primary_key=True)
+    CustomerTypeId = Column(String(8000), ForeignKey("Customer.Id"))
+    Customer = relationship("Customer")
+
+
+class CustomerDemographic(BaseMixin, Model):
     __tablename__ = 'CustomerDemographic'
 
     Id = Column(String(8000), primary_key=True)
     CustomerDesc = Column(String(8000))
 
 
-class Employee(Base):
+class Employee(BaseMixin, Model):
     __tablename__ = 'Employee'
 
     Id = Column(Integer, primary_key=True)
@@ -60,7 +86,52 @@ class Employee(Base):
     PhotoPath = Column(String(8000))
 
 
-class Product(Base):
+class EmployeeTerritory(BaseMixin, Model):
+    __tablename__ = 'EmployeeTerritory'
+
+    Id = Column(String(8000), primary_key=True)
+    EmployeeId = Column(Integer, ForeignKey("Employee.Id"), nullable=False)
+    Employee = relationship("Employee")
+    TerritoryId = Column(String(8000), ForeignKey("Territory.Id") )
+    Territory = relationship("Territory")
+
+
+class Order(BaseMixin, Model):
+    __tablename__ = 'Order'
+
+    Id = Column(Integer, primary_key=True)
+    # CustomerId = Column(String(8000))
+    CustomerId = Column(String(8000), ForeignKey("Customer.Id"), nullable=False)
+    Customer = relationship(Customer)
+    EmployeeId = Column(Integer, nullable=False)
+    OrderDate = Column(String(8000))
+    RequiredDate = Column(String(8000))
+    ShippedDate = Column(String(8000))
+    ShipVia = Column(Integer)
+    Freight = Column(DECIMAL, nullable=False)
+    ShipName = Column(String(8000))
+    ShipAddress = Column(String(8000))
+    ShipCity = Column(String(8000))
+    ShipRegion = Column(String(8000))
+    ShipPostalCode = Column(String(8000))
+    ShipCountry = Column(String(8000))
+   
+
+
+class OrderDetail(BaseMixin, Model):
+    __tablename__ = 'OrderDetail'
+
+    Id = Column(String(8000), primary_key=True)
+    OrderId = Column(Integer, ForeignKey("Order.Id"), nullable=False)
+    Order = relationship("Order")
+    ProductId = Column(Integer, ForeignKey("Product.Id"), nullable=False)
+    Product = relationship("Product")
+    UnitPrice = Column(DECIMAL, nullable=False)
+    Quantity = Column(Integer, nullable=False)
+    Discount = Column(Float, nullable=False)
+
+
+class Product(BaseMixin, Model):
     __tablename__ = 'Product'
 
     Id = Column(Integer, primary_key=True)
@@ -75,14 +146,33 @@ class Product(Base):
     Discontinued = Column(Integer, nullable=False)
 
 
-class Region(Base):
+t_ProductDetails_V = Table(
+    'ProductDetails_V', metadata,
+    Column('Id', Integer),
+    Column('ProductName', String(8000)),
+    Column('SupplierId', Integer),
+    Column('CategoryId', Integer),
+    Column('QuantityPerUnit', String(8000)),
+    Column('UnitPrice', DECIMAL),
+    Column('UnitsInStock', Integer),
+    Column('UnitsOnOrder', Integer),
+    Column('ReorderLevel', Integer),
+    Column('Discontinued', Integer),
+    Column('CategoryName', String(8000)),
+    Column('CategoryDescription', String(8000)),
+    Column('SupplierName', String(8000)),
+    Column('SupplierRegion', String(8000))
+)
+
+
+class Region(BaseMixin, Model):
     __tablename__ = 'Region'
 
     Id = Column(Integer, primary_key=True)
     RegionDescription = Column(String(8000))
 
 
-class Shipper(Base):
+class Shipper(BaseMixin, Model):
     __tablename__ = 'Shipper'
 
     Id = Column(Integer, primary_key=True)
@@ -90,7 +180,7 @@ class Shipper(Base):
     Phone = Column(String(8000))
 
 
-class Supplier(Base):
+class Supplier(BaseMixin, Model):
     __tablename__ = 'Supplier'
 
     Id = Column(Integer, primary_key=True)
@@ -107,7 +197,7 @@ class Supplier(Base):
     HomePage = Column(String(8000))
 
 
-class Territory(Base):
+class Territory(BaseMixin, Model):
     __tablename__ = 'Territory'
 
     Id = Column(String(8000), primary_key=True)
@@ -171,47 +261,6 @@ class AbViewMenu(Base):
     name = Column(String(250), nullable=False, unique=True)
 
 
-class CustomerCustomerDemo(Base):
-    __tablename__ = 'CustomerCustomerDemo'
-
-    Id = Column(String(8000), primary_key=True)
-    CustomerTypeId = Column(ForeignKey('Customer.Id'))
-
-    Customer = relationship('Customer')
-
-
-class EmployeeTerritory(Base):
-    __tablename__ = 'EmployeeTerritory'
-
-    Id = Column(String(8000), primary_key=True)
-    EmployeeId = Column(ForeignKey('Employee.Id'), nullable=False)
-    TerritoryId = Column(ForeignKey('Territory.Id'))
-
-    Employee = relationship('Employee')
-    Territory = relationship('Territory')
-
-
-class Order(Base):
-    __tablename__ = 'Order'
-
-    Id = Column(Integer, primary_key=True)
-    CustomerId = Column(ForeignKey('Customer.Id'))
-    EmployeeId = Column(Integer, nullable=False)
-    OrderDate = Column(String(8000))
-    RequiredDate = Column(String(8000))
-    ShippedDate = Column(String(8000))
-    ShipVia = Column(Integer)
-    Freight = Column(DECIMAL, nullable=False)
-    ShipName = Column(String(8000))
-    ShipAddress = Column(String(8000))
-    ShipCity = Column(String(8000))
-    ShipRegion = Column(String(8000))
-    ShipPostalCode = Column(String(8000))
-    ShipCountry = Column(String(8000))
-
-    Customer = relationship('Customer')
-
-
 class AbPermissionView(Base):
     __tablename__ = 'ab_permission_view'
     __table_args__ = (
@@ -238,20 +287,6 @@ class AbUserRole(Base):
 
     role = relationship('AbRole')
     user = relationship('AbUser')
-
-
-class OrderDetail(Base):
-    __tablename__ = 'OrderDetail'
-
-    Id = Column(String(8000), primary_key=True)
-    OrderId = Column(ForeignKey('Order.Id'), nullable=False)
-    ProductId = Column(ForeignKey('Product.Id'), nullable=False)
-    UnitPrice = Column(DECIMAL, nullable=False)
-    Quantity = Column(Integer, nullable=False)
-    Discount = Column(Float, nullable=False)
-
-    Order = relationship('Order')
-    Product = relationship('Product')
 
 
 class AbPermissionViewRole(Base):

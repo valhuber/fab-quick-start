@@ -12,7 +12,7 @@ Favorites: ['name', 'description']
 
 Non Favorites: ['id']
 
-At: 2020-08-13 08:19:03.045728
+At: 2020-08-14 11:13:43.668484
 
 Debug cmd override: /Users/val/python/vscode/fab-quick-start/nw-app
 
@@ -61,11 +61,11 @@ class OrderDetailModelView(ModelView):
    list_columns = [
 "Id", "Order.ShipName", "Product.ProductName", "UnitPrice", "Quantity"]
    show_columns = [
-"Id", "Order.ShipName", "Product.ProductName", "UnitPrice", "Quantity", "Discount", "ProductId", "OrderId"]
+"Id", "Order.ShipName", "Product.ProductName", "UnitPrice", "Quantity", "Discount", "OrderId", "ProductId"]
    edit_columns = [
-"Id", "UnitPrice", "Quantity", "Discount", "ProductId", "OrderId"]
+"Id", "UnitPrice", "Quantity", "Discount", "OrderId", "ProductId"]
    add_columns = [
-"Id", "UnitPrice", "Quantity", "Discount", "ProductId", "OrderId"]
+"Id", "UnitPrice", "Quantity", "Discount", "OrderId", "ProductId"]
    related_views = []
 
 appbuilder.add_view(
@@ -78,9 +78,9 @@ appbuilder.add_view(
 class OrderModelView(ModelView):
    datamodel = SQLAInterface(Order)
    list_columns = ["ShipName", "Customer.CompanyName", "OrderDate", "RequiredDate", "ShippedDate"]
-   show_columns = ["ShipName", "Customer.CompanyName", "OrderDate", "RequiredDate", "ShippedDate", "ShipVia", "Freight", "ShipAddress", "ShipCity", "ShipRegion", "ShipPostalCode", "ShipCountry", "EmployeeId", "CustomerId", "Id"]
-   edit_columns = ["ShipName", "OrderDate", "RequiredDate", "ShippedDate", "ShipVia", "Freight", "ShipAddress", "ShipCity", "ShipRegion", "ShipPostalCode", "ShipCountry", "EmployeeId", "CustomerId", "Id"]
-   add_columns = ["ShipName", "OrderDate", "RequiredDate", "ShippedDate", "ShipVia", "Freight", "ShipAddress", "ShipCity", "ShipRegion", "ShipPostalCode", "ShipCountry", "EmployeeId", "CustomerId", "Id"]
+   show_columns = ["ShipName", "Customer.CompanyName", "OrderDate", "RequiredDate", "ShippedDate", "ShipVia", "Freight", "ShipAddress", "ShipCity", "ShipRegion", "ShipPostalCode", "ShipCountry", "Id", "EmployeeId", "CustomerId"]
+   edit_columns = ["ShipName", "OrderDate", "RequiredDate", "ShippedDate", "ShipVia", "Freight", "ShipAddress", "ShipCity", "ShipRegion", "ShipPostalCode", "ShipCountry", "Id", "EmployeeId", "CustomerId"]
+   add_columns = ["ShipName", "OrderDate", "RequiredDate", "ShippedDate", "ShipVia", "Freight", "ShipAddress", "ShipCity", "ShipRegion", "ShipPostalCode", "ShipCountry", "Id", "EmployeeId", "CustomerId"]
    related_views = [OrderDetailModelView]
 
 appbuilder.add_view(
@@ -102,7 +102,7 @@ appbuilder.add_view(
       CustomerModelView, "Customer List", icon="fa-folder-open-o", category="Menu")
 
 
-# table already generated per recursion: CustomerCustomerDemo
+
 
 
 class CustomerDemographicModelView(ModelView):
@@ -123,9 +123,9 @@ appbuilder.add_view(
 class EmployeeTerritoryModelView(ModelView):
    datamodel = SQLAInterface(EmployeeTerritory)
    list_columns = ["Id", "Territory.TerritoryDescription", "Employee.LastName"]
-   show_columns = ["Id", "Territory.TerritoryDescription", "Employee.LastName", "EmployeeId", "TerritoryId"]
-   edit_columns = ["Id", "EmployeeId", "TerritoryId"]
-   add_columns = ["Id", "EmployeeId", "TerritoryId"]
+   show_columns = ["Id", "Territory.TerritoryDescription", "Employee.LastName", "TerritoryId", "EmployeeId"]
+   edit_columns = ["Id", "TerritoryId", "EmployeeId"]
+   add_columns = ["Id", "TerritoryId", "EmployeeId"]
    related_views = []
 
 appbuilder.add_view(
@@ -147,15 +147,15 @@ appbuilder.add_view(
       EmployeeModelView, "Employee List", icon="fa-folder-open-o", category="Menu")
 
 
-# table already generated per recursion: EmployeeTerritory# table already generated per recursion: Order# table already generated per recursion: OrderDetail# table already generated per recursion: OrderDetail
+# table already generated per recursion: OrderDetail
 
 
 class ProductModelView(ModelView):
    datamodel = SQLAInterface(Product)
    list_columns = ["ProductName", "QuantityPerUnit", "UnitPrice", "UnitsInStock", "UnitsOnOrder"]
-   show_columns = ["ProductName", "QuantityPerUnit", "UnitPrice", "UnitsInStock", "UnitsOnOrder", "ReorderLevel", "Discontinued", "CategoryId", "SupplierId", "Id"]
-   edit_columns = ["ProductName", "QuantityPerUnit", "UnitPrice", "UnitsInStock", "UnitsOnOrder", "ReorderLevel", "Discontinued", "CategoryId", "SupplierId", "Id"]
-   add_columns = ["ProductName", "QuantityPerUnit", "UnitPrice", "UnitsInStock", "UnitsOnOrder", "ReorderLevel", "Discontinued", "CategoryId", "SupplierId", "Id"]
+   show_columns = ["ProductName", "QuantityPerUnit", "UnitPrice", "UnitsInStock", "UnitsOnOrder", "ReorderLevel", "Discontinued", "Id", "SupplierId", "CategoryId"]
+   edit_columns = ["ProductName", "QuantityPerUnit", "UnitPrice", "UnitsInStock", "UnitsOnOrder", "ReorderLevel", "Discontinued", "Id", "SupplierId", "CategoryId"]
+   add_columns = ["ProductName", "QuantityPerUnit", "UnitPrice", "UnitsInStock", "UnitsOnOrder", "ReorderLevel", "Discontinued", "Id", "SupplierId", "CategoryId"]
    related_views = [OrderDetailModelView]
 
 appbuilder.add_view(
@@ -213,9 +213,9 @@ appbuilder.add_view(
 class TerritoryModelView(ModelView):
    datamodel = SQLAInterface(Territory)
    list_columns = ["TerritoryDescription"]
-   show_columns = ["TerritoryDescription", "RegionId", "Id"]
-   edit_columns = ["TerritoryDescription", "RegionId", "Id"]
-   add_columns = ["TerritoryDescription", "RegionId", "Id"]
+   show_columns = ["TerritoryDescription", "Id", "RegionId"]
+   edit_columns = ["TerritoryDescription", "Id", "RegionId"]
+   add_columns = ["TerritoryDescription", "Id", "RegionId"]
    related_views = [EmployeeTerritoryModelView]
 
 appbuilder.add_view(
@@ -223,12 +223,11 @@ appbuilder.add_view(
 
 
 # skip admin table: ab_permission
-# skip admin table: ab_permission_view
-# skip admin table: ab_view_menu
-# skip admin table: ab_permission_view_role
-# skip admin table: ab_role
 # skip admin table: ab_register_user
+# skip admin table: ab_role
 # skip admin table: ab_user
+# skip admin table: ab_view_menu
+# table already generated per recursion: CustomerCustomerDemo# table already generated per recursion: EmployeeTerritory# table already generated per recursion: Order# skip admin table: ab_permission_view
 # skip admin table: ab_user_role
+# table already generated per recursion: OrderDetail# skip admin table: ab_permission_view_role
 #  21 table(s) in model; generated 13 page(s), including 5 related_view(s).
-

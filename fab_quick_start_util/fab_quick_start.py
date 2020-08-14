@@ -3,6 +3,8 @@
 
 For Dev: Install, Run, Deploy Instructions
     https://github.com/valhuber/fab-quick-start/wiki/Explore-fab-quick-start
+    cd nw-app
+    python ../fab_quick_start_util/fab_quick_start.py
 
 For Users: Usage
     FAB Quick Start Guide: https://github.com/valhuber/fab-quick-start/wiki
@@ -10,11 +12,7 @@ For Users: Usage
 
 Urgent
     FAB - Generated app fails - maybe release with ReadMe, but undesirable...
-        OrderDetail - magnifying glass page fails
-        Generators views.py fails: class ProductDetails_VModelView(ModelView):
-    Quick Start - we can release without these
-        Search this code for FIXME
-        We can release without these
+        OrderDetail - magnifying glass page fails - FAB AppBuilder issue
 
 New Quick Start Features:
     * Some minor relationships may be missing in models.py
@@ -42,8 +40,10 @@ from sqlalchemy import MetaData
 import inspect
 import importlib
 import click
-# FIXME from fab_quick_start_util import __version__  for now...
-__version__ = '0.9.5'
+# import fab_quick_start_util.__init__  TODO
+# __version__ = __init__.__version__
+# fails 'method-wrapper' object has no attribute '__version__'.. work-around:
+__version__ = "0.9.5"
 
 #  MetaData = NewType('MetaData', object)
 MetaDataTable = NewType('MetaDataTable', object)
@@ -110,7 +110,7 @@ class FabQuickStart(object):
                               "fab-quick-start/nw-app", 1)
             self._result += "Debug cmd override: " + cwd + "\n\n"
             #  print ("\n\n** debug path issues 2: \n\n" + self._result)
-        self._result += '"""\n\n'
+        self._result += '"""\n\n'  # look into fstring - nicer to read TODO
         metadata = self.find_meta_data(cwd)
         meta_tables = metadata.tables
         self._result += self.generate_module_imports()
@@ -228,6 +228,8 @@ class FabQuickStart(object):
         result = ""
         table_name = a_table_def.name
         log.debug("process_each_table: " + table_name)
+        if "ProductDetails_V" in table_name:
+            log.debug("special table")  # should not occur (--noviews)
         if table_name.startswith("ab_"):
             return "# skip admin table: " + table_name + "\n"
         elif table_name in self._tables_generated:
@@ -532,7 +534,7 @@ def fab():
     pass
 
 
-@fab.command("version")  # FIXME not working
+@fab.command("version")  # TODO not working
 def version():
     """
         FAB Quickstart package version
@@ -595,8 +597,8 @@ log = logging.getLogger(__name__)
 
 def start():  # target of setup.py
     print("\nFAB Quickstart " + __version__ + " Here\n")
-    main(obj={})  # FIXME missing args
+    main(obj={})  # TODO - main(a,b) fails to work for --help
 
 
 if __name__ == '__main__':
-    main(obj={})
+    start()
