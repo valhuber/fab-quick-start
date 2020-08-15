@@ -48,7 +48,7 @@ Then, generate the ``views.py`` file like this::
     cd <project>  # fab directory containing the config.py file
     pip install -i https://test.pypi.org/simple/ fab-quick-start
     
-    fab-quick-start
+    fab-quick-start run
 
 Copy the console output to your `views.py` file, and run fab / flask app::
 
