@@ -602,7 +602,7 @@ def run(ctx, favorites: str, non_favorites: str):
     print("\n" + fab_quick_start._result)
 
 
-@main.command("version")  # TODO not working
+@main.command("version")
 @click.pass_context
 def version(ctx):
     """
@@ -620,7 +620,7 @@ log = logging.getLogger(__name__)
 
 def start():  # target of setup.py
     print("\n\nfab-quick-start " + __version__ + " here\n")
-    main(obj={}) # TODO - main(a,b) fails to work for --help
+    main(obj={})  # TODO - main(a,b) fails to work for --help
 
 
 if __name__ == '__main__':
@@ -630,9 +630,4 @@ if __name__ == '__main__':
         '--non_favorites=id',
     )
     main(commands)
-    """
-    ctx = click.Context(click.Command('run'))
-    with ctx:
-        main(ctx)
-    """
     # start()
