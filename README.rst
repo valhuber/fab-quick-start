@@ -1,7 +1,7 @@
 FAB Quick Start Utility - build ``views.py``
 ============================================
 
-The ``fab-quickstart`` command line utility creates the
+The ``fab-quick-start`` command line utility creates the
 `Flask App Builder <https://github.com/dpgaspar/Flask-AppBuilder>`_ ``views.py`` file,
 directly from ``models.py``, for an instant multi-page, multi-table app.
 
@@ -20,7 +20,7 @@ Generated fab pages look as shown below:
 
 #. **Favorite field first:** first-displayed field is "name", or `contains` "name" (configurable)
 
-#. **Predictive joins:** favorite field of each parent is shown (product _name_ - not product _id_)
+#. **Predictive joins:** favorite field of each parent is shown (product *name* - not product *id*)
 
 #. **Ids last:** such boring fields are not shown on lists, and at the end on other pages
 
@@ -46,14 +46,33 @@ First, create a fab project (e.g., see the Quick Start Guide).
 Then, generate the ``views.py`` file like this::
 
     cd <project>  # fab directory containing the config.py file
-    pip install -i https://test.pypi.org/simple/ fab-quick-start
-    
+    pip install fab-quick-start
     fab-quick-start run
 
 Copy the console output to your `views.py` file, and run fab / flask app::
 
     export FLASK_APP=app
     flask run
+
+
+Parameters
+----------
+The simple ``run`` command will request 2 parameters, and output to the console.
+You can specify parameters and output via command line arguments, like this::
+
+    fab-quick-start run --favorites="name description" --non_favorites="id" > app/views.py
+
+where:
+
+- **favorites:** words() used to find "favorite fields".  Fields named with these words,
+  or *containing* these words, are placed at the *start* of lists and show pages.  
+  Your values might reflect your language, and your database naming conventions.
+
+- **non_favorites:** name(s) used to find fields to be place 
+  at the *end* of list / show pages.
+
+- the `>` pipes the output to a file (which is overwritten).
+
 
 Depends on:
 -----------

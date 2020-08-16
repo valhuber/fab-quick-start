@@ -48,7 +48,7 @@ import click
 # import fab_quick_start_util.__init__  TODO
 # __version__ = __init__.__version__
 # fails 'method-wrapper' object has no attribute '__version__'.. work-around:
-__version__ = "0.9.7"
+__version__ = "0.1.0"
 
 #  MetaData = NewType('MetaData', object)
 MetaDataTable = NewType('MetaDataTable', object)
@@ -619,7 +619,7 @@ log = logging.getLogger(__name__)
 
 
 def start():  # target of setup.py
-    print("\n\nfab-quick-start " + __version__ + " here\n")
+    sys.stderr.write("\n\nfab-quick-start " + __version__ + " here\n")
     main(obj={})  # TODO - main(a,b) fails to work for --help
 
 

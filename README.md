@@ -30,8 +30,7 @@ Then, generate the `views.py` file like this:
 
 ```
 cd <project>  # fab directory containing `config.py` file
-pip install -i https://test.pypi.org/simple/ fab-quick-start
-
+pip install fab-quick-start
 fab-quick-start run
 ```
 
@@ -42,8 +41,18 @@ export FLASK_APP=app
 flask run
 ```
 
-
+## Parameters
+The simple `run` command will request 2 parameters, and output to the console.
+You can specify parameters and output via command line arguments, like this:
+```
+fab-quick-start run --favorites="name description" --non_favorites="id" > app/views.py
+```
+where
+* __favorites:__ names()) used to find "favorite fields".  Fields named with these words, or
+_containing_ these words, are placed at the _start_ of lists and show pages.  Your values might reflect your language, and your database naming conventions.
+* __non_favorites:__ name(s) used to find fields to be placed at the _end_ of list / show pages.
+* the `>` pipes the output to a file (which is overwritten).
 
 ***
 ## Explore fab-quick-start
-Use this to [explore the FAB Quick Start Utility](https://github.com/valhuber/fab-quick-start/wiki/Explore-fab-quick-start).
+Use this to [explore the FAB Quick Start Utility](https://github.com/valhuber/fab-quick-start/wiki/Explore-the-FAB-Quick-Start-Utility).
