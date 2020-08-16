@@ -56,3 +56,11 @@ _containing_ these words, are placed at the _start_ of lists and show pages.  Yo
 ***
 ## Explore fab-quick-start
 Use this to [explore the FAB Quick Start Utility](https://github.com/valhuber/fab-quick-start/wiki/Explore-the-FAB-Quick-Start-Utility).
+
+
+## Acknowledgements
+Many thanks to
+* Daniel Vaz Gaspar, the creator of FAB, for his help and guidance
+* Katrina Huber-Juma, for Python help and final review
+* Tyler Band, for early testing
+

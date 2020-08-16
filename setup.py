@@ -27,7 +27,7 @@ project_urls = {
 
 setup(
     name="fab-quick-start",
-    version="0.1.1",  # TODO use the io_open  
+    version="0.1.2",  # TODO use the io_open  
     url="https://github.com/valhuber/fab-quick-start",
     license="BSD",
     author="Val Huber",
@@ -72,7 +72,7 @@ setup(
     extras_require={"jmespath": ["jmespath>=0.9.5"]},
     tests_require=["nose>=1.0", "mockldap>=0.3.0"],
     classifiers=[
-        "Development Status :: 1 - Planning",
+        "Development Status :: 3 - Alpha",
         "Environment :: Web Environment",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: BSD License",

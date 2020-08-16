@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: fab-quick-start
-Version: 0.1.1
+Version: 0.1.2
 Summary: Creates FAB view from model, for an instant multi-page, multi-table app.Apps are multi-page: 1 page per table, with page-page navigation for related data.Pages are multi-table: includes related_views, predictive joins.
 Home-page: https://github.com/valhuber/fab-quick-start
 Author: Val Huber
@@ -87,10 +87,21 @@ Description: FAB Quick Start Utility - build ``views.py``
         -----------
         - Flask-AppBuilder
         
+        
         More information:
         -----------------
-        The `FAB Quick Start github <https://github.com/valhuber/fab-quick-start#fab-quick-start---build-viewspy>`_ for more information, and explore the code.
+        The `FAB Quick Start github <https://github.com/valhuber/fab-quick-start#fab-quick-start-utility---build-viewspy>`_ for more information, and explore the code.
         
+        
+        Acknowledgements
+        ----------------
+        Many thanks to
+        
+        - Daniel Vaz Gaspar, the creator of FAB, for his help and guidance
+        
+        - Katrina Huber-Juma, for Python help and final review
+        
+        - Tyler Band, for early testing
         
         
         
@@ -100,7 +111,7 @@ Description: FAB Quick Start Utility - build ``views.py``
         Initial Version
         
 Platform: any
-Classifier: Development Status :: 1 - Planning
+Classifier: Development Status :: 3 - Alpha
 Classifier: Environment :: Web Environment
 Classifier: Intended Audience :: Developers
 Classifier: License :: OSI Approved :: BSD License

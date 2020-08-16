@@ -78,10 +78,21 @@ Depends on:
 -----------
 - Flask-AppBuilder
 
+
 More information:
 -----------------
-The `FAB Quick Start github <https://github.com/valhuber/fab-quick-start#fab-quick-start---build-viewspy>`_ for more information, and explore the code.
+The `FAB Quick Start github <https://github.com/valhuber/fab-quick-start#fab-quick-start-utility---build-viewspy>`_ for more information, and explore the code.
 
+
+Acknowledgements
+----------------
+Many thanks to
+
+- Daniel Vaz Gaspar, the creator of FAB, for his help and guidance
+
+- Katrina Huber-Juma, for Python help and final review
+
+- Tyler Band, for early testing
 
 
 
