@@ -54,7 +54,10 @@ _containing_ these words, are placed at the _start_ of lists and show pages.  Yo
 * the `>` pipes the output to a file (which is overwritten).
 
 ## Foreign Keys
-A key FAB service is automatic page navigations to see related data.  These depend on Foreign Key relationships.
+A key FAB service is automatic page navigations to see related data.
+These depend on Foreign Key relationships.
+Note statistics are shown in the last lines of the generated `view.py` file.
+
 If they are not present, add them to your `models.py` file, or (better) to your schema.
 
 ***
