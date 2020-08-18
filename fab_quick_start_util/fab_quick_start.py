@@ -93,8 +93,8 @@ class FabQuickStart(object):
 
             Parameters:
         """
-        self._favorite_names_list = self.favorite_names.split()
         self._non_favorite_names_list = self.non_favorite_names.split()
+        self._favorite_names_list = self.favorite_names.split()
 
         cwd = os.getcwd()
         self._result += '"""'
@@ -107,7 +107,6 @@ class FabQuickStart(object):
                          + "Non Favorites: "
                          + str(self._non_favorite_names_list) + "\n\n"
                          + "At: " + str(datetime.datetime.now()) + "\n\n")
-        #  print ("\n\n** debug path issues 1: \n\n" + self._result)
         if ("fab-quick-start" in cwd and "nw" not in cwd):
             # sorry, this is just to enable run cli/base, *or" by python cli.py
             # need to wind up at .... /nw-app
@@ -115,6 +114,7 @@ class FabQuickStart(object):
                               "fab-quick-start/nw-app", 1)
             self._result += "Debug cmd override: " + cwd + "\n\n"
             #  print ("\n\n** debug path issues 2: \n\n" + self._result)
+        #  print ("\n\n** debug path issues 1: \n\n" + self._result)
         self._result += '"""\n\n'  # look into fstring - nicer to read TODO
         metadata = self.find_meta_data(cwd)
         meta_tables = metadata.tables
