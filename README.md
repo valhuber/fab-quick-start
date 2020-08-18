@@ -53,6 +53,10 @@ _containing_ these words, are placed at the _start_ of lists and show pages.  Yo
 * __non_favorites:__ name(s) used to find fields to be placed at the _end_ of list / show pages.
 * the `>` pipes the output to a file (which is overwritten).
 
+## Foreign Keys
+A key FAB service is automatic page navigations to see related data.  These depend on Foreign Key relationships.
+If they are not present, add them to your `models.py` file, or (better) to your schema.
+
 ***
 ## Explore fab-quick-start
 Use this to [explore the FAB Quick Start Utility](https://github.com/valhuber/fab-quick-start/wiki/Explore-the-FAB-Quick-Start-Utility).
