@@ -100,3 +100,5 @@ Change Log
 ----------
 
 Initial Version
+
+0.9.8 - Fix duplicate view class generation

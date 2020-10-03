@@ -27,7 +27,7 @@ project_urls = {
 
 setup(
     name="fab-quick-start",
-    version="0.1.2",  # TODO use the io_open  
+    version="0.9.9",  # TODO use the io_open
     url="https://github.com/valhuber/fab-quick-start",
     license="BSD",
     author="Val Huber",

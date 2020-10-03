@@ -1,11 +1,15 @@
 # -*- coding: utf-8 -*-
 """Generates FAB views.py file from db model.
 
-For Dev: Install, Run, Deploy Instructions
+For Dev: Install, Run, Deploy Instructions to test Command Line
+
     https://github.com/valhuber/fab-quick-start/wiki/Explore-fab-quick-start
     cd nw-app
     python ../fab_quick_start_util/fab_quick_start.py
     python ../fab_quick_start_util/fab_quick_start.py run
+
+    cd banking/basic_web_app/
+    python ../../fab_quick_start_util/fab_quick_start.py run
 
     cd nw-app
     virtualenv venv
@@ -16,8 +20,7 @@ For Users: Usage
     FAB Quick Start Utility: https://github.com/valhuber/fab-quick-start
 
 Urgent
-    FAB - Generated app fails - maybe release with ReadMe, but undesirable...
-        OrderDetail - magnifying glass page fails - FAB AppBuilder issue
+    None
 
 New Quick Start Features:
     * Some minor relationships may be missing in models.py
@@ -48,7 +51,7 @@ import click
 # import fab_quick_start_util.__init__  TODO
 # __version__ = __init__.__version__
 # fails 'method-wrapper' object has no attribute '__version__'.. work-around:
-__version__ = "0.1.2"
+__version__ = "0.9.9"
 
 #  MetaData = NewType('MetaData', object)
 MetaDataTable = NewType('MetaDataTable', object)
@@ -107,11 +110,28 @@ class FabQuickStart(object):
                          + "Non Favorites: "
                          + str(self._non_favorite_names_list) + "\n\n"
                          + "At: " + str(datetime.datetime.now()) + "\n\n")
-        if ("fab-quick-start" in cwd and "nw" not in cwd):
+        sys.path.append(cwd)  # for banking Command Line test
+        if ("fab-quick-start" in cwd and "nw" not in cwd and
+                "banking" not in cwd):
             # sorry, this is just to enable run cli/base, *or" by python cli.py
-            # need to wind up at .... /nw-app
-            cwd = cwd.replace("fab-quick-start",
-                              "fab-quick-start/nw-app", 1)
+            # need to wind up at .... /nw-app, or /banking/db
+            # AND have that in sys.path
+            use_nw = True
+            if use_nw:
+                cwd = cwd.replace("fab-quick-start",
+                                  "fab-quick-start/nw-app", 1)
+                cwd = cwd.replace("/fab_quick_start_util","")
+                self._result += "Debug Mode fix for cwd: " + cwd + "\n\n"
+            else:
+                cwd = cwd.replace("fab-quick-start",
+                                  "fab-quick-start/banking/basic_web_app", 1)
+                cwd = cwd.replace("/fab_quick_start_util","")
+                python_path = os.getcwd()
+                python_path = python_path.replace('fab-quick-start',
+                                                  'banking', 1)
+                python_path = python_path.replace("/fab_quick_start_util","")
+                sys.path.append(python_path)
+                self._result += "Python Path includes: " + python_path + "\n\n"
             self._result += "Debug cmd override: " + cwd + "\n\n"
             #  print ("\n\n** debug path issues 2: \n\n" + self._result)
         #  print ("\n\n** debug path issues 1: \n\n" + self._result)
@@ -127,6 +147,8 @@ class FabQuickStart(object):
 
     def find_meta_data(self, a_cwd: str) -> MetaData:
         """     Find Metadata from model, or (failing that), db
+
+        a_cmd should be
 
             Metadata contains definition of tables, cols & fKeys (show_related)
             It can be obtained from db, *or* models.py; important because...
@@ -158,14 +180,26 @@ class FabQuickStart(object):
 
                 credit: https://www.blog.pythonlibrary.org/2016/05/27/python-201-an-intro-to-importlib/
             """
-            sys.path.insert(0, a_cwd + '/app')
-            #  e.g., adds /Users/val/python/vscode/fab-quickstart/nw-app/app
-            #  print("DEBUG find_meta sys.path: " + str(sys.path))
+            sys_path = str(sys.path)
+            model_loaded = False
             try:
                 # models =
                 importlib.import_module('models')
+                model_loaded = True
             except:
-                raise Exception("Unable to open models from: " + str(sys.path))
+                pass  # one more try...
+            if not model_loaded:
+                sys.path.insert(0, a_cwd + '/app')
+                #  e.g., adds /Users/val/python/vscode/fab-quickstart/nw-app/app
+                #  print("DEBUG find_meta sys.path: " + str(sys.path))
+                try:
+                    # models =
+                    importlib.import_module('models')
+                except:
+                    print("\n\nERROR - current result:\n" + self._result)
+                    raise Exception("Unable to open models from:\n" +
+                                    a_cwd + ", or\n" +
+                                    a_cwd + '/app')
 
             sys.path.insert(0, a_cwd)
             config = importlib.import_module('config')
@@ -233,6 +267,8 @@ class FabQuickStart(object):
         result = ""
         table_name = a_table_def.name
         log.debug("process_each_table: " + table_name)
+        if "TRANSFERFUND" in table_name:
+            log.debug("special table")  # debug stop here
         if "ProductDetails_V" in table_name:
             log.debug("special table")  # should not occur (--noviews)
         if table_name.startswith("ab_"):
@@ -241,6 +277,7 @@ class FabQuickStart(object):
             log.debug("table already generated per recursion: " + table_name)
             return "# table already generated per recursion: " + table_name
         else:
+            self._tables_generated.add(table_name)
             child_list = self.find_child_list(a_table_def)
             for each_child in child_list:  # recurse to ensure children first
                 log.debug(".. but children first: " + each_child.name)
@@ -619,7 +656,7 @@ log = logging.getLogger(__name__)
 
 
 def start():  # target of setup.py
-    sys.stderr.write("\n\nfab-quick-start " + __version__ + " here\n")
+    sys.stderr.write("\n\nfab-quick-start " + __version__ + " here\n\n")
     main(obj={})  # TODO - main(a,b) fails to work for --help
 
 
