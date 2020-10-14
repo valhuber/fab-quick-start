@@ -64,6 +64,8 @@ If they are not present, add them to your `models.py` file, or (better) to your 
 ## Explore fab-quick-start
 Use this to [explore the FAB Quick Start Utility](https://github.com/valhuber/fab-quick-start/wiki/Explore-the-FAB-Quick-Start-Utility).
 
+## Now with Logic
+FAB works with [Logic Bank](https://github.com/valhuber/logicbank), which employs rules and Python to dramatically reduce and simplify backend code for business logic.
 
 ## Acknowledgements
 Many thanks to
