@@ -72,4 +72,5 @@ Many thanks to
 * Daniel Vaz Gaspar, the creator of FAB, for his help and guidance
 * Katrina Huber-Juma, for Python help and final review
 * Tyler Band, for early testing
+* Achim Götz, for reporting a bug in examples
 
