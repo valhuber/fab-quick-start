@@ -1,7 +1,7 @@
 import datetime
 import banking.db.models as models
 from logic_bank.exec_row_logic.logic_row import LogicRow
-from logic_bank.rule import Rule
+from logic_bank.logic_bank import Rule
 from banking.db.models import CUSTOMER, CHECKING, CHECKINGTRANS, SAVING, SAVINGSTRANS, TRANSFERFUND
 
 def activate_basic_rules():
