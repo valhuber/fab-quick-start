@@ -23,7 +23,7 @@ Generated fab pages look as shown below:
 Recall that creating the `views.py` file can be [tedious](https://github.com/valhuber/fab-quick-start/wiki#key-fab-inputs-modelspy-and-viewspy).  This utility generates the `views.py` file from the `models.py` file, to save time and reduce learning curve.
 
 
-## Usage
+## Usage (on your project)
 First, create a fab project (e.g., see the Quick Start Guide).
 
 Then, generate the `views.py` file like this:
@@ -62,7 +62,17 @@ If they are not present, add them to your `models.py` file, or (better) to your 
 
 ***
 ## Explore fab-quick-start
-Use this to [explore the FAB Quick Start Utility](https://github.com/valhuber/fab-quick-start/wiki/Explore-the-FAB-Quick-Start-Utility).
+To use this project:
+```
+git clone 
+cd fab-quick-start
+virtualenv venv
+source venv/bin/activate
+cd nw/basic-web-app
+export FLASK_APP=app
+flask run
+```
+Use this to [explore the FAB Quick Start Utility further](https://github.com/valhuber/fab-quick-start/wiki/Explore-the-FAB-Quick-Start-Utility).
 
 ## Now with Logic
 FAB works with [Logic Bank](https://github.com/valhuber/logicbank), which employs rules and Python to dramatically reduce and simplify backend code for business logic.
