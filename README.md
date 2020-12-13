@@ -13,7 +13,7 @@ Generated fab pages look as shown below:
 1. __Predictive joins:__ favorite field of each parent is shown (product _name_ - not product _id_)
 1. __Ids last:__ such boring fields are not shown on lists, and at the end on other pages
 
-![generated page](https://drive.google.com/uc?export=view&id=1Q3cG-4rQ6Q6RdZppvkrQzCDhDYHnk-F6)
+![generated page](https://github.com/valhuber/LogicBank/blob/main/images/fab.png)
 
 
 ## Background
