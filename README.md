@@ -15,6 +15,8 @@ Generated fab pages look as shown below:
 
 ![generated page](https://github.com/valhuber/LogicBank/blob/main/images/fab.png)
 
+<figure><img src="images/generated-page.png" width="800"></figure>
+
 
 ## Background
 [Flask Application Builder (FAB)](https://github.com/dpgaspar/Flask-AppBuilder) provides a rapid means for building web pages for database apps, based on Python, Flask and sqlalchemy.  Use this [Quick Start Guide](https://github.com/valhuber/fab-quick-start/wiki) to create the application above in 10 minutes.
