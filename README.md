@@ -64,14 +64,15 @@ If they are not present, add them to your `models.py` file, or (better) to your 
 ## Explore fab-quick-start
 To use this project:
 ```
-git clone 
+git clone https://github.com/valhuber/fab-quick-start.git
 cd fab-quick-start
 virtualenv venv
 source venv/bin/activate
-cd nw/basic-web-app
+cd nw/basic_web_app
 export FLASK_APP=app
 flask run
 ```
+
 Use this to [explore the FAB Quick Start Utility further](https://github.com/valhuber/fab-quick-start/wiki/Explore-the-FAB-Quick-Start-Utility).
 
 ## Now with Logic
