@@ -3,6 +3,9 @@ The `fab-quick-start` command line utility generates
 [Flask Application Builder (FAB)](https://github.com/dpgaspar/Flask-AppBuilder)
 `views.py` files, to create instant multi-page, multi-table apps.
 
+> **Update - Jan 26, 2021:** checkout [**ApiLogicServer**](https://github.com/valhuber/ApiLogicServer#readme) - create a complete JSON:API for your database, with LogicBank, and a basic web app
+
+
 Use this [FAB Quick Start Guide](https://github.com/valhuber/fab-quick-start/wiki) to create the application below in 10 minutes.
 
 ## Features
